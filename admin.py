@@ -1,5 +1,5 @@
-# Name:  
-# Student Number:  
+# Name:  Kim Tran
+# Student Number:   10657323  
 
 # This file is provided to you as a starting point for the "admin.py" program of Assignment 2
 # of Programming Principles in Semester 1, 2024.  It aims to give you just enough code to help ensure
@@ -19,85 +19,140 @@ import json
 # This function repeatedly prompts for input until an integer is entered.
 # See Point 1 of the "Functions in admin.py" section of the assignment brief.
 def input_int(prompt):
-    pass
+    while True:
+        try:
+            value = int(input(prompt))
+            if value >= 1:
+                return value
+        except:
+            continue
 
 
 # This function repeatedly prompts for input until something other than whitespace is entered.
 # See Point 2 of the "Functions in admin.py" section of the assignment brief.
 def input_something(prompt):
-    pass
+    value = ''
+    while value == '':
+        value = input(prompt).strip()
+    return value
 
 
 # This function opens "data.txt" in write mode and writes the data to it in JSON format.
 # See Point 3 of the "Functions in admin.py" section of the assignment brief.
 def save_data(data_list):
-    pass
+    f = open('data.txt', 'w')
+    json.dump(data_list, f, indent = 2)
+    f.close()
 
+def main():
+    data = None
+    try:
+        f = open('data.txt', 'r')
+        data = json.load(f)
+        f.close()
+    except:
+        data = []
 
+    print('Welcome to the Quiz Admin Program.')
 
+    while True:
+        print('\nChoose [a]dd, [l]ist, [s]earch, [v]iew, [d]elete or [q]uit.')
+        choice = input('> ')
+            
+        if choice == 'a':
+            answers = []
+            question = input_something('Enter the question: ')
 
-# Here is where you attempt to open data.txt and read the data into a "data" variable.
-# If the file does not exist or does not contain JSON data, set "data" to an empty list instead.
-# This is the only time that the program should need to read anything from the file.
-# See Point 1 of the "Requirements of admin.py" section of the assignment brief.
+            value = ''
+            while value != 'q':
+                value = input_something('Enter a valid answer (enter "q" when done): ').lower()
+                if value != 'q':
+                    answers.append(value)
+            
+            while True:
+                difficulty = input_int('Enter question difficulty (1-5): ')
+                if difficulty >= 1 and difficulty <= 5:
+                    break
+                print('Invalid value. Must be an integer between 1 and 5.')
 
-
-
-
-# Print welcome message, then enter the endless loop which prompts the user for a choice.
-# See Point 2 of the "Requirements of admin.py" section of the assignment brief.
-# The rest is up to you.
-print('Welcome to the Quiz Admin Program.')
-
-while True:
-    print('\nChoose [a]dd, [l]ist, [s]earch, [v]iew, [d]elete or [q]uit.')
-    choice = input('> ')
+            question_details = {'question': question, 'answers': answers, 'difficulty': difficulty}
+            data.append(question_details)
+            save_data(data)
+            print('Question added!')
         
-    if choice == 'a':
-        # Add a new question.
-        # See Point 3 of the "Requirements of admin.py" section of the assignment brief.
-        pass
-
-
-    
-    elif choice == 'l':
-        # List the current questions.
-        # See Point 4 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+        elif choice == 'l':
+            if len(data) == 0:
+                print('There are no questions saved.')
+            else:
+                print('Current questions:')
+                for idx, details in enumerate(data):
+                    print('  ' + str(idx + 1) + ') ' + details['question'])
 
 
 
-    elif choice == 's':
-        # Search the current questions.
-        # See Point 5 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+        elif choice == 's':
+            if len(data) == 0:
+                print('There are no questions saved.')
+            else:
+                search_term = input_something('Enter a search term: ')
+                count = 0
+                for idx, details in enumerate(data):
+                    if search_term.lower() in details['question'].lower():
+                        print('  ' + str(idx + 1) + ') ' + details['question'])
+                        count = count + 1
+                if count == 0:
+                    print('No results found.')
+                
+
+
+        elif choice == 'v':
+            if len(data) == 0:
+                print('There are no questions saved.')
+            else:
+                number = input_int('Question number to view: ')
+                count = 0
+                for idx, details in enumerate(data):
+                    if number == idx + 1:
+                        print('\nQuestion: ', details['question'])
+                        if (len(details['answers']) == 1):
+                            print('Answer:', ', '.join(details['answers']))
+                        else:
+                            print('Answers:', ', '.join(details['answers']))
+                        print('Difficulty:', details['difficulty'])
+                        count = count + 1
+                        break
+                if count == 0:
+                    print('Invalid index number.')
 
 
 
-    elif choice == 'v':
-        # View a question.
-        # See Point 6 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+        elif choice == 'd':
+            if len(data) == 0:
+                print('There are no questions saved.')
+            else:
+                number = input_int('Question number to delete: ')
+                count = 0
+                for idx, details in enumerate(data):
+                    if number == idx + 1:
+                        del data[idx]
+                        count = count + 1
+                        print('Question deleted!')
+                        save_data(data)
+                        break
+                if count == 0:
+                    print('Invalid index number.')
 
 
 
-    elif choice == 'd':
-        # Delete a question.
-        # See Point 7 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+        elif choice == 'q':
+            print('Goodbye!')
+            break
 
 
 
-    elif choice == 'q':
-        # Quit the program.
-        # See Point 8 of the "Requirements of admin.py" section of the assignment brief.
-        pass
+        else:
+            print('Invalid choice.')
 
 
-
-    else:
-        # Print "invalid choice" message.
-        # See Point 9 of the "Requirements of admin.py" section of the assignment brief.
-        pass
-
+main()
 # If you have been paid to write this program, please delete this comment.

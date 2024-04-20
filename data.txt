@@ -1,0 +1,18 @@
+[
+  {
+    "question": "In which year was Halley's Comet last visible from Earth?",
+    "answers": [
+      "1986"
+    ],
+    "difficulty": 3
+  },
+  {
+    "question": "Where were the 2016 Summer Olympics held?",
+    "answers": [
+      "rio de janeiro",
+      "rio",
+      "brazil"
+    ],
+    "difficulty": 2
+  }
+]
