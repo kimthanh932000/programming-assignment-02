@@ -28,13 +28,5 @@
       "blue"
     ],
     "difficulty": 5
-   },
-   {
-    "question": "In which US city would you find Manhattan, Brooklyn and the Bronx?",
-    "answers": [
-      "New York",
-      "NY"
-    ],
-    "difficulty": 1
    }
 ]
