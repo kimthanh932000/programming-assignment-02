@@ -1,5 +1,5 @@
-# Name:  
-# Student Number:  
+# Name: Kim Tran
+# Student Number:   10657323  
 
 # Import the required modules.
 import tkinter
@@ -26,27 +26,29 @@ class ProgramGUI:
             f.close()
 
             if len(self.data) < 5:
-                tkinter.messagebox.showerror('Error', 'Insufficient number of questions')
+                tkinter.messagebox.showerror('Error!', 'Insufficient number of questions!')
                 self.main.destroy()
                 return
+            
             self.quiz_questions = random.sample(self.data, 5)
         except:
-            tkinter.messagebox.showerror('Error', 'Missing/Invalid file')
+            tkinter.messagebox.showerror('Error!', 'Missing/Invalid file!')
             self.main.destroy()
             return
 
         self.question_label_var = tkinter.StringVar()
         self.question_number_var = tkinter.StringVar()
+        
         self.question_number = tkinter.Label(self.main, pady=6, textvariable=self.question_number_var)
         self.question_label = tkinter.Label(self.main, padx=30, pady=4, textvariable=self.question_label_var)
         self.hard_label = tkinter.Label(self.main, text='This is a hard one - good luck!', fg='blue', padx=30, pady=4)
-
+        
         self.bottom = tkinter.Frame(self.main, padx=30, pady=10)
-        self.answer_entry = tkinter.Entry(self.bottom, width=30)
+        self.answer_entry = tkinter.Entry(self.bottom, width=40)
         self.submitButton = tkinter.Button(self.bottom, text='Submit Answer', command=self.check_answer)
-        self.answer_entry.pack(side='left')
+        
+        self.answer_entry.pack(side='left', padx=10)
         self.submitButton.pack(side='left')
-
         self.question_number.pack()
         self.question_label.pack()
         self.bottom.pack()
@@ -59,8 +61,6 @@ class ProgramGUI:
     def show_question(self):
         # This method is responsible for displaying the current question and some other messages in the GUI
         self.item = self.quiz_questions[self.current_question]
-        print(self.item)
-
         self.question_number_var.set('Question ' + str(self.current_question + 1) + ' of 5:')
         self.question_label_var.set(self.item['question'])
 
@@ -78,14 +78,14 @@ class ProgramGUI:
         answer = self.answer_entry.get().lower()
 
         if answer in self.item['answers']:
-            self.score = self.score + self.item['difficulty'] * 2
+            self.score = self.score + (self.item['difficulty'] * 2)
             tkinter.messagebox.showinfo('Correct!', 'You are correct!')
         else:
             tkinter.messagebox.showerror('Incorrect!', 'Sorry. That was incorrect!')
 
         self.current_question += 1
         
-        if self.current_question >= len(self.quiz_questions):
+        if self.current_question == len(self.quiz_questions):
             tkinter.messagebox.showinfo('Final Score', 'Game over,\nFinal score: ' + str(self.score) + ' \n\nThank you for playing!')
             self.main.destroy()
             return
