@@ -1,4 +1,4 @@
-# Name: Kim Tran
+# Name:   Kim Tran
 # Student Number:   10657323  
 
 # Import the required modules.
@@ -36,23 +36,27 @@ class ProgramGUI:
             self.main.destroy()
             return
 
+        # Define variables to store the current question number and text
         self.question_label_var = tkinter.StringVar()
         self.question_number_var = tkinter.StringVar()
-        
-        self.question_number = tkinter.Label(self.main, pady=6, textvariable=self.question_number_var)
+
+        # Define labels to display current question number, text and hard message
+        self.question_number_label = tkinter.Label(self.main, pady=6, textvariable=self.question_number_var)
         self.question_label = tkinter.Label(self.main, padx=30, pady=4, textvariable=self.question_label_var)
         self.hard_label = tkinter.Label(self.main, text='This is a hard one - good luck!', fg='blue', padx=30, pady=4)
-        
-        self.bottom = tkinter.Frame(self.main, padx=30, pady=10)
-        self.answer_entry = tkinter.Entry(self.bottom, width=40)
-        self.submitButton = tkinter.Button(self.bottom, text='Submit Answer', command=self.check_answer)
-        
-        self.answer_entry.pack(side='left', padx=10)
-        self.submitButton.pack(side='left')
-        self.question_number.pack()
-        self.question_label.pack()
-        self.bottom.pack()
 
+        # Define a frame to contain answer input and submit button
+        self.bottom_frame = tkinter.Frame(self.main, padx=30, pady=10)
+        self.answer_entry = tkinter.Entry(self.bottom_frame, width=40)
+        self.submit_button = tkinter.Button(self.bottom_frame, text='Submit Answer', command=self.check_answer)
+
+        # Place the UI widgets in their dedicated locations
+        self.answer_entry.pack(side='left', padx=10)
+        self.submit_button.pack(side='left')
+        self.question_number_label.pack()
+        self.question_label.pack()
+        self.bottom_frame.pack()
+    
         self.show_question()
         
         tkinter.mainloop()
@@ -60,6 +64,9 @@ class ProgramGUI:
 
     def show_question(self):
         # This method is responsible for displaying the current question and some other messages in the GUI
+        self.answer_entry.delete(0, tkinter.END)
+        self.answer_entry.focus_set()
+
         self.item = self.quiz_questions[self.current_question]
         self.question_number_var.set('Question ' + str(self.current_question + 1) + ' of 5:')
         self.question_label_var.set(self.item['question'])
@@ -69,9 +76,6 @@ class ProgramGUI:
         else:
             self.hard_label.pack_forget()
         
-        self.answer_entry.delete(0, tkinter.END)
-        self.answer_entry.focus_set()
-
 
     def check_answer(self):   
         # This method is responsible for checking if the user's answer is correct when the button is clicked.        
