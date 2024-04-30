@@ -1,10 +1,18 @@
 [
   {
+    "question": "What is the lightest element on the periodic table?",
+    "answers": [
+      "hydrogen",
+      "h"
+    ],
+    "difficulty": 5
+  },
+  {
     "question": "In which year was Halley's Comet last visible from Earth?",
     "answers": [
       "1986"
     ],
-    "difficulty": 2
+    "difficulty": 3
   },
   {
     "question": "Where were the 2016 Summer Olympics held?",
@@ -13,28 +21,21 @@
       "rio",
       "brazil"
     ],
-    "difficulty": 3
-  },
-  {
-    "question": "In what year was the first iPod put on sale?",
-    "answers": [
-      "2001"
-    ],
-    "difficulty": 4
+    "difficulty": 2
   },
   {
     "question": "What colour is mixed with red to make purple?",
     "answers": [
       "blue"
     ],
-    "difficulty": 5
-   },
-   {
+    "difficulty": 1
+  },
+  {
     "question": "In which US city would you find Manhattan, Brooklyn and the Bronx?",
     "answers": [
-      "New York",
-      "NY"
+      "new york",
+      "ny"
     ],
-    "difficulty": 1
-   }
+    "difficulty": 4
+  }
 ]

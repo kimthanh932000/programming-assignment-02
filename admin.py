@@ -4,7 +4,7 @@
 # Import the json module to allow us to read and write data in JSON format.
 import json
 
-# This function repeatedly prompts for input until an integer is entered.
+# This function repeatedly prompts for input until an integer is entered (an integer of 1 or more).
 def input_int(prompt):
     while True:
         try:
